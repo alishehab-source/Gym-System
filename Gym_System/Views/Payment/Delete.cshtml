@@ -1,0 +1,17 @@
+﻿@model Gym_System.Models.Payment
+
+@{
+    ViewData["Title"] = "Delete Payment";
+}
+
+<h2>🗑 Delete Payment</h2>
+
+<div class="alert alert-danger">
+    Are you sure you want to delete this payment for <strong>@Model.Amount.ToString("C")</strong>?
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">🗑 Confirm Delete</button>
+    <a asp-action="Index" asp-route-memberId="@Model.MemberId" class="btn btn-secondary">Cancel</a>
+</form>

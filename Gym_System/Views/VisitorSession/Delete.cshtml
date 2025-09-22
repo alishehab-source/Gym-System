@@ -1,0 +1,25 @@
+﻿@model Gym_System.Models.VisitorSession
+@{
+    ViewData["Title"] = "Delete Vistior Session";
+}
+
+<h2 class="mb-4 text-danger">Are You Sure You Want to Delete theSession?</h2>
+
+<div class="mb-3">
+    <dl class="row">
+        <dt class="col-sm-3">History</dt>
+        <dd class="col-sm-9">@Model.SessionDate.ToShortDateString()</dd>
+
+        <dt class="col-sm-3">Notes</dt>
+        <dd class="col-sm-9">@Model.Note</dd>
+
+        <dt class="col-sm-3">Session Type</dt>
+        <dd class="col-sm-9">@Model.SessionType?.Name</dd>
+    </dl>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</form>

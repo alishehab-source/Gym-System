@@ -1,0 +1,38 @@
+﻿@model Gym_System.Models.Member
+
+@{
+    ViewData["Title"] = "Delete Member";
+}
+
+<h2 class="text-danger mb-4">⚠ Confirm Delete</h2>
+
+<h4>Are you sure you want to delete this member?</h4>
+
+<div class="border p-3 rounded mb-4 bg-light">
+    <dl class="row">
+        <dt class="col-sm-3">Full Name</dt>
+        <dd class="col-sm-9">@Model.FullName</dd>
+
+        <dt class="col-sm-3">Phone Number</dt>
+        <dd class="col-sm-9">@Model.PhoneNumber</dd>
+
+        <dt class="col-sm-3">Subscription</dt>
+        <dd class="col-sm-9">@Model.Subscription?.Name</dd>
+
+        <dt class="col-sm-3">Start Date</dt>
+        <dd class="col-sm-9">@Model.StartDate.ToShortDateString()</dd>
+
+        <dt class="col-sm-3">End Date</dt>
+        <dd class="col-sm-9">@Model.EndDate?.ToShortDateString()</dd>
+
+        <dt class="col-sm-3">Total Paid</dt>
+        <dd class="col-sm-9">@Model.TotalPaid.ToString("C")</dd>
+    </dl>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger">🗑 Confirm Delete</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">← Cancel</a>
+</form>

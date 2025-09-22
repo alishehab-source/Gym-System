@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Gym_System.Models.Member>
+
+@{
+    ViewData["Title"] = "Members List";
+    var today = DateTime.Today;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Members List</h2>
+
+
+    <div class="btn-group">
+        <a asp-controller="Subscription" asp-action="Create" class="btn btn-outline-primary">➕ Add Subscription</a>
+        <a asp-controller="Expense" asp-action="Create" class="btn btn-outline-warning">💸 Add Expense</a>
+        <a asp-controller="Subscription" asp-action="Index" class="btn btn-outline-secondary">📋 View Subscriptions</a>
+        <a asp-action="Report" class="btn btn-outline-dark">📊 Monthly Report</a>
+        <a asp-controller="Expense" asp-action="Index" class="btn btn-outline-dark">💸 View Expenses</a>
+        <a asp-controller="VistorSession" asp-action="Create" class="btn-outline-primary mb-3"></a>
+        <a asp-controller="VisitorSession" asp-action="Create" class="btn btn-warning" style="margin-left:10px">
+            <i class="fa fa-user-plus"></i> Add Vistor Session
+        </a>
+
+    </div>
+</div>
+
+<div class="d-flex justify-content-between mb-3">
+    <div>
+        <a asp-action="Index" class="btn btn-outline-secondary me-2">All</a>
+        <a asp-action="Index" asp-route-filter="active" class="btn btn-outline-success me-2">Active</a>
+        <a asp-action="Index" asp-route-filter="expired" class="btn btn-outline-danger">Expired</a>
+    </div>
+    <form asp-action="Index" method="get" class="d-flex">
+        <input type="text" name="search" class="form-control me-2" placeholder="Search by name..." />
+        <button type="submit" class="btn btn-outline-primary">🔍</button>
+    </form>
+    <div>
+        <a asp-action="Create" class="btn btn-primary">➕ Add Member</a>
+
+    </div>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Subscription</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Paid</th>
+            <th>Remaining</th>
+            <th>Paid %</th>
+            <th>Sessions Used</th>
+            <th>Sessions Remaining</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var member in Model)
+        {
+            var remaining = member.SubscriptionPrice - member.TotalPaid;
+            var percentage = member.SubscriptionPrice > 0 ? Math.Round((member.TotalPaid / member.SubscriptionPrice) * 100) : 0;
+            var isExpired = member.EndDate < today;
+
+            <tr class="@(isExpired ? "table-danger" : "")">
+                <td>@member.FullName</td>
+                <td>@member.PhoneNumber</td>
+                <td>@member.Subscription?.Name</td>
+                <td>@member.StartDate.ToShortDateString()</td>
+                <td>@member.EndDate?.ToShortDateString()</td>
+                <td>@member.TotalPaid.ToString("C")</td>
+                <td>@remaining.ToString("C")</td>
+                <td>@percentage %</td>
+                <td>@member.SessionsUsed</td>
+                <td>@member.SessionsRemaining</td>
+                <td>
+                    @if (isExpired)
+                    {
+                        <span class="badge bg-danger">Expired</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">Active</span>
+                    }
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            Actions
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-action="Edit" asp-route-id="@member.Id">✏ Edit</a></li>
+                            <li><a class="dropdown-item" asp-action="Delete" asp-route-id="@member.Id">🗑 Delete</a></li>
+                            <li><a class="dropdown-item" asp-action="Details" asp-route-id="@member.Id">👁 View Details</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" asp-controller="Payment" asp-action="Index" asp-route-memberId="@member.Id">💳 View Payments</a></li>
+                            <li><a class="dropdown-item" asp-controller="Payment" asp-action="Create" asp-route-memberId="@member.Id">💰 Add Payment</a></li>
+                            <li><a class="dropdown-item" asp-controller="MemberSession" asp-action="ForMember" asp-route-memberId="@member.Id">📅 View Sessions</a></li>
+                            <li><a class="dropdown-item" asp-controller="MemberSession" asp-action="Create" asp-route-memberId="@member.Id">➕ Add Session</a></li>
+
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

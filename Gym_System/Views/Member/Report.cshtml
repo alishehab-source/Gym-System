@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Gym_System.Models.Member>
+@{
+    ViewData["Title"] = "Monthly Report";
+}
+<h2>📊 Monthly Report</h2>
+
+<a asp-controller="Expense" asp-action="Create" class="btn btn-outline-danger mb-3">➕ Add Expense</a>
+
+<form method="get" class="row g-3 mb-4">
+    ...
+</form>
+
+<div class="alert alert-info">
+    <strong>🧍 Total Members:</strong> @ViewBag.TotalMembers <br />
+    <strong>💰 Total Income:</strong> @ViewBag.TotalPaid.ToString("C") <br />
+    <strong>💸 Total Expenses:</strong> @ViewBag.TotalExpenses?.ToString("C") <br />
+    <strong>📈 Net Income:</strong> @ViewBag.NetIncome?.ToString("C") 
+</div>
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Start Date</th>
+            <th>Paid</th>
+            <th>Subscription</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var member in Model)
+        {
+            <tr>
+                <td>@member.FullName</td>
+                <td>@member.StartDate.ToShortDateString()</td>
+                <td>@member.TotalPaid.ToString("C")</td>
+                <td>@member.Subscription?.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Member" asp-action="Index" class="btn btn-secondary">← Back to Members</a>

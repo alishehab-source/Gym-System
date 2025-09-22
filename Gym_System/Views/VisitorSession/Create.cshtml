@@ -1,0 +1,71 @@
+﻿@model Gym_System.Models.VisitorSession
+@{
+    ViewData["Title"] = "Create Visitor Session";
+}
+
+<h2>Create Visitor Session</h2>
+
+@if (ViewBag.SessionTypeCount != null)
+{
+    <div class="alert alert-info">
+        Session Types Count: @ViewBag.SessionTypeCount
+    </div>
+}
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+@if (ViewBag.ValidationErrors != null)
+{
+    <div class="alert alert-warning">
+        <h5>Validation Errors:</h5>
+        <ul>
+            @foreach (var error in ViewBag.ValidationErrors)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </div>
+}
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="SessionDate" class="control-label"></label>
+        <input asp-for="SessionDate" class="form-control" type="date" />
+        <span asp-validation-for="SessionDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Note" class="control-label"></label>
+        <input asp-for="Note" class="form-control" />
+        <span asp-validation-for="Note" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SessionTypeId" class="control-label"></label>
+        <select asp-for="SessionTypeId" class="form-control">
+            <option value="">-- Select Session Type --</option>
+            @if (ViewBag.SessionTypes != null)
+            {
+                @foreach (var sessionType in (List<Gym_System.Models.SessionType>)ViewBag.SessionTypes)
+                {
+                    <option value="@sessionType.Id">@sessionType.Name</option>
+                }
+            }
+        </select>
+        <span asp-validation-for="SessionTypeId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+<a asp-action="Index" class="btn btn-secondary">Back</a>

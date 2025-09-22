@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Gym_System.Models.MemberSession>
+@{
+    ViewData["Title"] = "Member Sessions";
+}
+
+<h1 class="mb-4">Member Sessions</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Add New Session</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Session Date</th>
+            <th>Fee</th>
+            <th>Notes</th>
+            <th>Member</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.SessionDate.ToString("yyyy-MM-dd")</td>
+
+                <td>@item.Note</td>
+                <td>@item.Member?.FullName ?? "N/A"</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Member" asp-action="Index" class="btn btn-secondary">← Back to Members</a>

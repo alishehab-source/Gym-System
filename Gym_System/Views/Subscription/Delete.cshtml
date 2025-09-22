@@ -1,0 +1,23 @@
+﻿@model Gym_System.Models.Subscription
+
+@{
+    ViewData["Title"] = "Delete Subscription";
+}
+
+<h2 class="text-danger">Are you sure you want to delete this subscription?</h2>
+
+<div class="mb-3">
+    <strong>Name:</strong> @Model.Name
+</div>
+<div class="mb-3">
+    <strong>Duration:</strong> @Model.DurationInDay Days
+</div>
+<div class="mb-3">
+    <strong>Price:</strong> @Model.Price.ToString("C")
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">🗑 Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">← Cancel</a>
+</form>

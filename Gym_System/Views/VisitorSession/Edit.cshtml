@@ -1,0 +1,40 @@
+﻿@model Gym_System.Models.VisitorSession
+@{
+    ViewData["Title"] = "Edit Visitor Session";
+}
+
+<h2 class="mb-4">Edit Visitor Session</h2>
+
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group mb-3">
+        <label asp-for="SessionDate" class="form-label"></label>
+        <input asp-for="SessionDate" class="form-control" type="date" />
+        <span asp-validation-for="SessionDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Note" class="form-label"></label>
+        <input asp-for="Note" class="form-control" />
+        <span asp-validation-for="Note" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="SessionTypeId" class="form-label">Session Type</label>
+        <select asp-for="SessionTypeId" class="form-control" asp-items="ViewBag.SessionTypes">
+            <option value="">-- Choose Session Type --</option>
+        </select>
+        <span asp-validation-for="SessionTypeId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">save Edit</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Gym_System.Models.MemberSession>
+
+<h2>Sessions for Member</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Session Date</th>
+            <th>Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var session in Model)
+        {
+            <tr>
+                <td>@session.SessionDate.ToShortDateString()</td>
+                <td>@session.Note</td>
+            </tr>
+        }
+    </tbody>
+</table>

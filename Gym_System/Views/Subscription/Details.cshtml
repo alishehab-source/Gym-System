@@ -1,0 +1,19 @@
+﻿@model Gym_System.Models.Subscription
+
+@{
+    ViewData["Title"] = "Subscription Details";
+}
+
+
+<h2>@Model.Name</h2>
+
+<ul class="list-group">
+    <li class="list-group-item"><strong>Duration:</strong> @Model.DurationInDay Days</li>
+    <li class="list-group-item"><strong>Price:</strong> @Model.Price.ToString("C")</li>
+    <li class="list-group-item"><strong>Sessions:</strong> @(Model.NumberOfSession ?? 0)</li>
+    <li class="list-group-item"><strong>Private:</strong> @(Model.IsPrivate ? "Yes" : "No")</li>
+    <li class="list-group-item"><strong>Invitation Required:</strong> @(Model.InVitationRequired ? "Yes" : "No")</li>
+    <li class="list-group-item"><strong>Created At:</strong> @Model.CreatedAt.ToShortDateString()</li>
+</ul>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">← Back to List</a>

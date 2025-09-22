@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Gym_System.Models.Expense>
+
+@{
+    ViewData["Title"] = "Expenses List";
+    var total = Model.Sum(e => e.Amount);
+}
+
+<h2 class="mb-3">💸 Monthly Expenses</h2>
+
+<a asp-action="Create" class="btn btn-success mb-3">➕ Add Expense</a>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Notes</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var expense in Model)
+        {
+            <tr>
+                <td>@expense.Notes</td>
+                <td>@expense.Amount.ToString("C")</td>
+                <td>@expense.Date.ToShortDateString()</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@expense.Id" class="btn btn-sm btn-danger">🗑 Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr class="table-secondary">
+            <td><strong>Total</strong></td>
+            <td colspan="3"><strong>@total.ToString("C")</strong></td>
+        </tr>
+    </tfoot>
+</table>
+<a asp-controller="Member" asp-action="Index" class="btn btn-secondary">← Back to Members</a>

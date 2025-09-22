@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Gym_System.Models.Subscription>
+
+@{
+    ViewData["Title"] = "Subscriptions";
+}
+
+<h2>Subscriptions</h2>
+
+<a asp-action="Create" class="btn btn-primary mb-3">➕ Add Subscription</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Duration (Days)</th>
+            <th>Price</th>
+            <th>Sessions</th>
+            <th>Private</th>
+            <th>Invitation Required</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sub in Model)
+        {
+            <tr>
+                <td>@sub.Name</td>
+                <td>@sub.DurationInDay</td>
+                <td>@sub.Price.ToString("C")</td>
+                <td>@(sub.NumberOfSession ?? 0)</td>
+                <td>@(sub.IsPrivate ? "Yes" : "No")</td>
+                <td>@(sub.InVitationRequired ? "Yes" : "No")</td>
+                <td>@sub.CreatedAt.ToShortDateString()</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@sub.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@sub.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+        <a asp-controller="Member" asp-action="Index" class="btn btn-secondary">← Back to Members</a>
+    </tbody>
+</table>
+ 

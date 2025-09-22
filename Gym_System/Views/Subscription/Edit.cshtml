@@ -1,0 +1,54 @@
+﻿@model Gym_System.Models.Subscription
+
+@{
+    ViewData["Title"] = "Edit Subscription";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DurationInDay" class="form-label"></label>
+        <input asp-for="DurationInDay" class="form-control" />
+        <span asp-validation-for="DurationInDay" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="NumberOfSession" class="form-label"></label>
+        <input asp-for="NumberOfSession" class="form-control" />
+        <span asp-validation-for="NumberOfSession" class="text-danger"></span>
+    </div>
+
+    <div class="form-check">
+        <input asp-for="IsPrivate" class="form-check-input" />
+        <label asp-for="IsPrivate" class="form-check-label"></label>
+    </div>
+
+    <div class="form-check">
+        <input asp-for="InVitationRequired" class="form-check-input" />
+        <label asp-for="InVitationRequired" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-warning mt-3">💾 Update</button>
+    <a asp-action="Index" class="btn btn-secondary mt-3">← Back</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

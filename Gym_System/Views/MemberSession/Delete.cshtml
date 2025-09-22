@@ -1,0 +1,20 @@
+﻿@model Gym_System.Models.MemberSession
+@{
+    ViewData["Title"] = "Delete Session";
+}
+
+<h1 class="mb-4 text-danger">Delete Session</h1>
+
+<h5>Are you sure you want to delete this session?</h5>
+
+<div class="border p-3 mb-3">
+    <p><strong>Date:</strong> @Model.SessionDate.ToString("yyyy-MM-dd")</p>
+    <p><strong>Note:</strong> @Model.Note</p>
+    <p><strong>Member:</strong> @Model.Member?.FullName ?? "N/A"</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
